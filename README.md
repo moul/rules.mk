@@ -1,46 +1,29 @@
-# golang-repo-template
+# rules.mk
 
-:smile: golang-repo-template
+:smile: rules.mk
 
-[![CircleCI](https://circleci.com/gh/moul/golang-repo-template.svg?style=shield)](https://circleci.com/gh/moul/golang-repo-template)
-[![GoDoc](https://godoc.org/moul.io/golang-repo-template?status.svg)](https://godoc.org/moul.io/golang-repo-template)
-[![License](https://img.shields.io/github/license/moul/golang-repo-template.svg)](https://github.com/moul/golang-repo-template/blob/master/LICENSE)
-[![GitHub release](https://img.shields.io/github/release/moul/golang-repo-template.svg)](https://github.com/moul/golang-repo-template/releases)
-[![Go Report Card](https://goreportcard.com/badge/moul.io/golang-repo-template)](https://goreportcard.com/report/moul.io/golang-repo-template)
-[![CodeFactor](https://www.codefactor.io/repository/github/moul/golang-repo-template/badge)](https://www.codefactor.io/repository/github/moul/golang-repo-template)
-[![codecov](https://codecov.io/gh/moul/golang-repo-template/branch/master/graph/badge.svg)](https://codecov.io/gh/moul/golang-repo-template)
-[![Docker Metrics](https://images.microbadger.com/badges/image/moul/golang-repo-template.svg)](https://microbadger.com/images/moul/golang-repo-template)
-[![GolangCI](https://golangci.com/badges/github.com/moul/golang-repo-template.svg)](https://golangci.com/r/github.com/moul/golang-repo-template)
-[![Sourcegraph](https://sourcegraph.com/github.com/moul/golang-repo-template/-/badge.svg)](https://sourcegraph.com/github.com/moul/golang-repo-template?badge)
+[![CircleCI](https://circleci.com/gh/moul/rules.mk.svg?style=shield)](https://circleci.com/gh/moul/rules.mk)
+[![License](https://img.shields.io/github/license/moul/rules.mk.svg)](https://github.com/moul/rules.mk/blob/master/LICENSE)
+[![GitHub release](https://img.shields.io/github/release/moul/rules.mk.svg)](https://github.com/moul/rules.mk/releases)
+[![CodeFactor](https://www.codefactor.io/repository/github/moul/rules.mk/badge)](https://www.codefactor.io/repository/github/moul/rules.mk)
 [![Made by Manfred Touron](https://img.shields.io/badge/made%20by-Manfred%20Touron-blue.svg?style=flat)](https://manfred.life/)
-
 
 ## Usage
 
-```console
-$ golang-repo-template -h
-...
-```
+1. Copy [`rules.mk`](./rules.mk) to your repo (`wget https://raw.githubusercontent.com/moul/rules.mk/master/rules.mk`)
+2. Configure your project variables and import `rules.mk` from your Makefile
+    ```makefile
+    GOPKG ?= moul.io/golang-repo-template
+    GOBINS ?= . ./cmd/secondary-app
+    DOCKER_IMAGE ?= moul/golang-repo-template
 
-## Install
+    -include rules.mk
+    ```
+4. Profit
 
-### Using go
-
-```console
-$ go get -u moul.io/golang-repo-template
-```
-
-### Using brew
-
-```console
-$ brew install moul/moul/golang-repo-template
-```
-
-### Download releases
-
-https://github.com/moul/golang-repo-template/releases
+See the [`./test` directory](./test)
 
 ## License
 
 © 2019 [Manfred Touron](https://manfred.life) -
-[Apache-2.0 License](https://github.com/moul/golang-repo-template/blob/master/LICENSE)
+[Apache-2.0 License](https://github.com/moul/rules.mk/blob/master/LICENSE)
