@@ -3,12 +3,67 @@ version: 2.1
 orbs:
   moul: moul/build@1.9.1 # https://github.com/moul/build
 
+jobs:
+  test-go-binary:
+    docker:
+      - image: golang
+    steps:
+      - checkout
+      - run: cd test/go-binary; make build
+      - run: cd test/go-binary; make install
+      - moul/install_golangci-lint
+      - run: cd test/go-binary; make test
+      - run: cd test/go-binary; make bumpdeps
+  test-go-library:
+    docker:
+      - image: golang
+    steps:
+      - checkout
+      - run: cd test/go-library; make build
+      - moul/install_golangci-lint
+      - run: cd test/go-library; make test
+      - run: cd test/go-library; make bumpdeps
+  test-docker:
+    executor: moul/docker
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run: apk add --no-cache make
+      - run: cd test/docker; make build
+  test-go-binary-and-docker:
+    docker:
+      - image: golang
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: install docker
+          command: |
+            curl -fsSL https://get.docker.com -o get-docker.sh
+            sh get-docker.sh
+      - run: cd test/go-binary-and-docker; make build
+      - run: cd test/go-binary-and-docker; make install
+      - moul/install_golangci-lint
+      - run: cd test/go-binary-and-docker; make test
+      - run: cd test/go-binary-and-docker; make bumpdeps
+  test-go-binary-and-docker--only-golang:
+    docker:
+      - image: golang
+    environment:
+      - DOCKER_IMAGE=
+    steps:
+      - checkout
+      - run: cd test/go-binary-and-docker; make build
+      - run: cd test/go-binary-and-docker; make install
+      - moul/install_golangci-lint
+      - run: cd test/go-binary-and-docker; make test
+      - run: cd test/go-binary-and-docker; make bumpdeps
+
 workflows:
   main:
     jobs:
-      - moul/golang-build:
-          gopkg: moul.io/golang-repo-template
-      - moul/golang-build:
-          gopkg: moul.io/golang-repo-template
-          tag: '1.11'
-      - moul/docker-build
+      - test-go-binary
+      - test-go-library
+      - test-docker
+      - test-go-binary-and-docker
+      - test-go-binary-and-docker--only-golang
