@@ -1,3 +1,39 @@
+# +--------------------------------------------------------------+
+# | * * *                moul.io/rules.mk                        |
+# +--------------------------------------------------------------+
+# |                                                              |
+# |     ++              ______________________________________   |
+# |     ++++           /                                      \  |
+# |      ++++          |                                      |  |
+# |    ++++++++++      |   https://moul.io/rules.mk is a set  |  |
+# |   +++       |      |   of common Makefile rules that can  |  |
+# |   ++         |     |   be configured from the Makefile    |  |
+# |   +  -==   ==|     |   or with environment variables.     |  |
+# |  (   <*>   <*>     |                                      |  |
+# |   |          |    /|                      Manfred Touron  |  |
+# |   |         _)   / |                        manfred.life  |  |
+# |   |      +++    /  \______________________________________/  |
+# |    \      =+   /                                             |
+# |     \      +                                                 |
+# |     |\++++++                                                 |
+# |     |  ++++      ||//                                        |
+# |  ___|   |___    _||/__                                     __|
+# | /    ---    \   \|  |||                   __ _  ___  __ __/ /|
+# |/  |       |  \    \ /                    /  ' \/ _ \/ // / / |
+# ||  |       |  |    | |                   /_/_/_/\___/\_,_/_/  |
+# +--------------------------------------------------------------+
+
+##
+## rules.mk
+##
+ifeq ($(RULESMK),1)
+.PHONY: rulesmk.bumpdeps
+rulesmk.bumpdeps:
+	wget -O rules.mk https://raw.githubusercontent.com/moul/rules.mk/master/rules.mk
+
+BUMPDEPS_STEPS += rulesmk.bumpdeps
+endif
+
 ##
 ## Golang
 ##

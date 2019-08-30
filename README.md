@@ -10,6 +10,8 @@
 
 ## Usage
 
+### Install
+
 1. Copy [`rules.mk`](./rules.mk) to your repo (`wget https://raw.githubusercontent.com/moul/rules.mk/master/rules.mk`)
 2. Configure your project variables and import `rules.mk` from your Makefile
     ```makefile
@@ -20,6 +22,13 @@
     -include rules.mk
     ```
 4. Profit
+
+### Update
+
+1. Run `make RULESMK=1 bumpdeps`
+2. Profit
+
+### Examples
 
 See the [`./test` directory](./test)
 

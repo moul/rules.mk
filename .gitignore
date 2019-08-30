@@ -3,6 +3,7 @@
 *#
 .#*
 coverage.txt
+**/rules.mk
 
 # Vendors
 node_modules/
