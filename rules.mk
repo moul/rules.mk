@@ -35,6 +35,18 @@ BUMPDEPS_STEPS += rulesmk.bumpdeps
 endif
 
 ##
+## Maintainer
+##
+
+.PHONY: generate.authors
+generate.authors:
+	echo "# This file lists all individuals having contributed content to the repository." > AUTHORS
+	echo "# For how it is generated, see 'https://github.com/moul/rules.mk'" >> AUTHORS
+	echo >> AUTHORS
+	git log --format='%aN <%aE>' | LC_ALL=C.UTF-8 sort -uf >> AUTHORS
+GENERATE_STEPS += generate.authors
+
+##
 ## Golang
 ##
 
@@ -140,6 +152,11 @@ endif
 ifdef INSTALL_STEPS
 .PHONY: install
 install: $(INSTALL_STEPS)
+endif
+
+ifdef GENERATE_STEPS
+.PHONY: generate
+generate: $(GENERATE_STEPS)
 endif
 
 ifdef UNITTEST_STEPS
