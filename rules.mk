@@ -106,8 +106,8 @@ go.bumpdeps:
 .PHONY: go.release
 go.release:
 	goreleaser --snapshot --skip-publish --rm-dist
-	@echo -n "Do you want to release? [y/N] " && read ans && [ $${ans:-N} = y ]
-	goreleaser --rm-dist
+	@echo -n "Do you want to release? [y/N] " && read ans && \
+	  if [ $${ans:-N} = y ]; then set -xe; goreleaser --rm-dist; fi
 
 BUILD_STEPS += go.build
 RELEASE_STEPS += go.release
@@ -115,6 +115,23 @@ BUMPDEPS_STEPS += go.bumpdeps
 TIDY_STEPS += go.tidy
 LINT_STEPS += go.lint
 UNITTEST_STEPS += go.unittest
+endif
+
+##
+## Node
+##
+
+ifdef NPM_PACKAGES
+.PHONY: npm.publish
+npm.publish:
+	@echo -n "Do you want to npm publish? [y/N] " && read ans && \
+	if [ $${ans:-N} = y ]; then \
+	  set -e; for dir in $(NPM_PACKAGES); do ( set -xe; \
+	    cd $$dir; \
+	    npm publish --access=public; \
+	  ); done; \
+	fi
+RELEASE_STEPS += npm.publish
 endif
 
 ##
@@ -154,11 +171,6 @@ ifdef INSTALL_STEPS
 install: $(INSTALL_STEPS)
 endif
 
-ifdef GENERATE_STEPS
-.PHONY: generate
-generate: $(GENERATE_STEPS)
-endif
-
 ifdef UNITTEST_STEPS
 .PHONY: unittest
 unittest: $(UNITTEST_STEPS)
@@ -179,7 +191,17 @@ ifdef BUILD_STEPS
 build: $(BUILD_STEPS)
 endif
 
+ifdef RELEASE_STEPS
+.PHONY: release
+release: $(RELEASE_STEPS)
+endif
+
 ifdef BUMPDEPS_STEPS
 .PHONY: bumpdeps
 bumpdeps: $(BUMPDEPS_STEPS)
+endif
+
+ifdef GENERATE_STEPS
+.PHONY: generate
+generate: $(GENERATE_STEPS)
 endif
