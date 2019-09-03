@@ -26,13 +26,10 @@
 ##
 ## rules.mk
 ##
-ifeq ($(RULESMK),1)
 .PHONY: rulesmk.bumpdeps
 rulesmk.bumpdeps:
 	wget -O rules.mk https://raw.githubusercontent.com/moul/rules.mk/master/rules.mk
-
 BUMPDEPS_STEPS += rulesmk.bumpdeps
-endif
 
 ##
 ## Maintainer
@@ -56,17 +53,24 @@ GO ?= go
 ifdef GOBINS
 .PHONY: go.install
 go.install:
-	set -e; for dir in $(GOBINS); do ( set -xe; \
+	@set -e; for dir in $(GOBINS); do ( set -xe; \
 	  cd $$dir; \
 	  $(GO) install .; \
 	); done
 INSTALL_STEPS += go.install
+
+.PHONY: go.release
+go.release:
+	goreleaser --snapshot --skip-publish --rm-dist
+	@echo -n "Do you want to release? [y/N] " && read ans && \
+	  if [ $${ans:-N} = y ]; then set -xe; goreleaser --rm-dist; fi
+RELEASE_STEPS += go.release
 endif
 
 .PHONY: go.unittest
 go.unittest:
 	echo "" > /tmp/coverage.txt
-	set -e; for dir in `find . -type f -name "go.mod" | sed 's@/[^/]*$$@@' | sort | uniq`; do ( set -xe; \
+	@set -e; for dir in `find . -type f -name "go.mod" | sed 's@/[^/]*$$@@' | sort | uniq`; do ( set -xe; \
 	  cd $$dir; \
 	  $(GO) test -v -cover -coverprofile=/tmp/profile.out -covermode=atomic -race ./...; \
 	  if [ -f /tmp/profile.out ]; then \
@@ -77,40 +81,33 @@ go.unittest:
 
 .PHONY: go.lint
 go.lint:
-	set -e; for dir in `find . -type f -name "go.mod" | sed 's@/[^/]*$$@@' | sort | uniq`; do ( set -xe; \
+	@set -e; for dir in `find . -type f -name "go.mod" | sed 's@/[^/]*$$@@' | sort | uniq`; do ( set -xe; \
 	  cd $$dir; \
 	  golangci-lint run --verbose ./...; \
 	); done
 
 .PHONY: go.tidy
 go.tidy:
-	set -e; for dir in `find . -type f -name "go.mod" | sed 's@/[^/]*$$@@' | sort | uniq`; do ( set -xe; \
+	@set -e; for dir in `find . -type f -name "go.mod" | sed 's@/[^/]*$$@@' | sort | uniq`; do ( set -xe; \
 	  cd $$dir; \
 	  $(GO)	mod tidy; \
 	); done
 
 .PHONY: go.build
 go.build:
-	set -e; for dir in `find . -type f -name "go.mod" | sed 's@/[^/]*$$@@' | sort | uniq`; do ( set -xe; \
+	@set -e; for dir in `find . -type f -name "go.mod" | sed 's@/[^/]*$$@@' | sort | uniq`; do ( set -xe; \
 	  cd $$dir; \
 	  $(GO)	build ./...; \
 	); done
 
 .PHONY: go.bump-deps
 go.bumpdeps:
-	set -e; for dir in `find . -type f -name "go.mod" | sed 's@/[^/]*$$@@' | sort | uniq`; do ( set -xe; \
+	@set -e; for dir in `find . -type f -name "go.mod" | sed 's@/[^/]*$$@@' | sort | uniq`; do ( set -xe; \
 	  cd $$dir; \
 	  $(GO)	get -u ./...; \
 	); done
 
-.PHONY: go.release
-go.release:
-	goreleaser --snapshot --skip-publish --rm-dist
-	@echo -n "Do you want to release? [y/N] " && read ans && \
-	  if [ $${ans:-N} = y ]; then set -xe; goreleaser --rm-dist; fi
-
 BUILD_STEPS += go.build
-RELEASE_STEPS += go.release
 BUMPDEPS_STEPS += go.bumpdeps
 TIDY_STEPS += go.tidy
 LINT_STEPS += go.lint
@@ -125,7 +122,7 @@ ifdef NPM_PACKAGES
 .PHONY: npm.publish
 npm.publish:
 	@echo -n "Do you want to npm publish? [y/N] " && read ans && \
-	if [ $${ans:-N} = y ]; then \
+	@if [ $${ans:-N} = y ]; then \
 	  set -e; for dir in $(NPM_PACKAGES); do ( set -xe; \
 	    cd $$dir; \
 	    npm publish --access=public; \
@@ -157,9 +154,7 @@ endif
 TEST_STEPS += $(UNITTEST_STEPS)
 TEST_STEPS += $(LINT_STEPS)
 TEST_STEPS += $(TIDY_STEPS)
-ALL_STEPS += $(TEST_STEPS)
 
-all: $(ALL_STEPS)
 
 ifneq ($(strip $(TEST_STEPS)),)
 .PHONY: test
