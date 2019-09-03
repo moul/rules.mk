@@ -23,6 +23,8 @@
 # ||  |       |  |    | |                   /_/_/_/\___/\_,_/_/  |
 # +--------------------------------------------------------------+
 
+all: help
+
 ##
 ## rules.mk
 ##
@@ -215,3 +217,17 @@ ifdef GENERATE_STEPS
 .PHONY: generate
 generate: $(GENERATE_STEPS)
 endif
+
+.PHONY: help
+help:
+	@echo "General commands:"
+	@[ "$(BUILD_STEPS)" != "" ]     && echo "  build"     || true
+	@[ "$(BUMPDEPS_STEPS)" != "" ]  && echo "  bumpdeps"  || true
+	@[ "$(GENERATE_STEPS)" != "" ]  && echo "  generate"  || true
+	@[ "$(INSTALL_STEPS)" != "" ]   && echo "  install"   || true
+	@[ "$(LINT_STEPS)" != "" ]      && echo "  lint"      || true
+	@[ "$(RELEASE_STEPS)" != "" ]   && echo "  release"   || true
+	@[ "$(TEST_STEPS)" != "" ]      && echo "  test"      || true
+	@[ "$(TIDY_STEPS)" != "" ]      && echo "  tidy"      || true
+	@[ "$(UNITTEST_STEPS)" != "" ]  && echo "  unittest"  || true
+	@# FIXME: list other commands
