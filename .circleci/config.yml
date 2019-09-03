@@ -50,7 +50,7 @@ jobs:
     docker:
       - image: golang
     environment:
-      - DOCKER_IMAGE=
+      - DOCKER_IMAGE=none
     steps:
       - checkout
       - run: cd test/go-binary-and-docker; make build
