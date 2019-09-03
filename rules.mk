@@ -153,6 +153,7 @@ DOCKER_IMAGE = $(notdir $(PWD))
 endif
 endif
 ifdef DOCKER_IMAGE
+ifneq ($(DOCKER_IMAGE),none)
 .PHONY: docker.build
 docker.build:
 	docker build \
@@ -162,6 +163,7 @@ docker.build:
 	  -t $(DOCKER_IMAGE) .
 
 BUILD_STEPS += docker.build
+endif
 endif
 
 ##
