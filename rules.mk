@@ -47,6 +47,11 @@ GENERATE_STEPS += generate.authors
 ## Golang
 ##
 
+ifndef GOPKG
+ifneq ($(wildcard go.mod),)
+GOPKG = $(shell sed '/module/!d;s/^omdule\ //' go.mod)
+endif
+endif
 ifdef GOPKG
 GO ?= go
 
@@ -118,6 +123,11 @@ endif
 ## Node
 ##
 
+ifndef NPM_PACKAGES
+ifneq ($(wildcard package.json),)
+NPM_PACKAGES = .
+endif
+endif
 ifdef NPM_PACKAGES
 .PHONY: npm.publish
 npm.publish:
@@ -135,6 +145,11 @@ endif
 ## Docker
 ##
 
+ifndef DOCKER_IMAGE
+ifneq ($(wildcard Dockerfile),)
+DOCKER_IMAGE = $(notdir $(PWD))
+endif
+endif
 ifdef DOCKER_IMAGE
 .PHONY: docker.build
 docker.build:
