@@ -15,13 +15,20 @@
 1. Copy [`rules.mk`](./rules.mk) to your repo (`wget https://raw.githubusercontent.com/moul/rules.mk/master/rules.mk`)
 2. Configure your project variables and import `rules.mk` from your Makefile
     ```makefile
-    GOPKG ?= moul.io/golang-repo-template
-    GOBINS ?= . ./cmd/secondary-app
-    DOCKER_IMAGE ?= moul/golang-repo-template
+    GOPKG =         moul.io/golang-repo-template  # optional
+    GOBINS =        . ./cmd/secondary-app         # optional
+    DOCKER_IMAGE =  moul/golang-repo-template     # optional
+    NPM_PACKAGES =  .                             # optional
 
-    -include rules.mk
+    include rules.mk                              # required
     ```
 4. Profit
+
+#### Minimal config
+
+```makefile
+include rules.mk
+```
 
 ### Update
 
