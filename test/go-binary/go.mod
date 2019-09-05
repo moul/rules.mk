@@ -1,3 +1,3 @@
 module moul.io/rules.mk/test/go-binary
 
-go 1.12
+go 1.13
