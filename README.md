@@ -32,7 +32,7 @@ include rules.mk
 
 ### Update
 
-1. Run `make RULESMK=1 bumpdeps`
+1. Run `make bumpdeps`
 2. Profit
 
 ### Examples
