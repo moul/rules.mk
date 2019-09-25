@@ -56,6 +56,7 @@ endif
 endif
 ifdef GOPKG
 GO ?= go
+GOPATH ?= $(HOME)/go
 
 ifdef GOBINS
 .PHONY: go.install
@@ -116,6 +117,7 @@ go.bumpdeps:
 
 .PHONY: go.bump-deps
 go.fmt:
+	if [[ ! -x "$(GOPATH)/bin/goimports" ]]; then GO111MODULE=off go get golang.org/x/tools/cmd/goimports; fi
 	@set -e; for dir in `find . -type f -name "go.mod" | sed 's@/[^/]*$$@@' | sort | uniq`; do ( set -xe; \
 	  cd $$dir; \
 	  goimports -w . \
