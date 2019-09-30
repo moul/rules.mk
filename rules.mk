@@ -67,13 +67,14 @@ endif
 ifdef GOPKG
 GO ?= go
 GOPATH ?= $(HOME)/go
+GO_INSTALL_OPTS ?=
 
 ifdef GOBINS
 .PHONY: go.install
 go.install:
 	@set -e; for dir in $(GOBINS); do ( set -xe; \
 	  cd $$dir; \
-	  $(GO) install .; \
+	  $(GO) install $(GO_INSTALL_OPTS) .; \
 	); done
 INSTALL_STEPS += go.install
 
