@@ -28,10 +28,12 @@ all: help
 ##
 ## rules.mk
 ##
+ifneq ($(wildcard rules.mk),)
 .PHONY: rulesmk.bumpdeps
 rulesmk.bumpdeps:
 	wget -O rules.mk https://raw.githubusercontent.com/moul/rules.mk/master/rules.mk
 BUMPDEPS_STEPS += rulesmk.bumpdeps
+endif
 
 ##
 ## Maintainer
