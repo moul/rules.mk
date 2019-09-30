@@ -188,55 +188,54 @@ TEST_STEPS += $(UNITTEST_STEPS)
 TEST_STEPS += $(LINT_STEPS)
 TEST_STEPS += $(TIDY_STEPS)
 
-
 ifneq ($(strip $(TEST_STEPS)),)
 .PHONY: test
-test: $(TEST_STEPS)
+test: $(PRE_TEST_STEPS) $(TEST_STEPS)
 endif
 
 ifdef INSTALL_STEPS
 .PHONY: install
-install: $(INSTALL_STEPS)
+install: $(PRE_INSTALL_STEPS) $(INSTALL_STEPS)
 endif
 
 ifdef UNITTEST_STEPS
 .PHONY: unittest
-unittest: $(UNITTEST_STEPS)
+unittest: $(PRE_UNITTEST_STEPS) $(UNITTEST_STEPS)
 endif
 
 ifdef LINT_STEPS
 .PHONY: lint
-lint: $(FMT_STEPS) $(LINT_STEPS)
+lint: $(PRE_LINT_STEPS) $(FMT_STEPS) $(LINT_STEPS)
 endif
 
 ifdef TIDY_STEPS
 .PHONY: tidy
-tidy: $(TIDY_STEPS)
+tidy: $(PRE_TIDY_STEPS) $(TIDY_STEPS)
 endif
 
 ifdef BUILD_STEPS
 .PHONY: build
-build: $(BUILD_STEPS)
+build: $(PRE_BUILD_STEPS) $(BUILD_STEPS)
 endif
 
 ifdef RELEASE_STEPS
 .PHONY: release
-release: $(RELEASE_STEPS)
+release: $(PRE_RELEASE_STEPS) $(RELEASE_STEPS)
 endif
 
 ifdef BUMPDEPS_STEPS
 .PHONY: bumpdeps
-bumpdeps: $(BUMPDEPS_STEPS)
+bumpdeps: $(PRE_BUMDEPS_STEPS) $(BUMPDEPS_STEPS)
 endif
 
 ifdef FMT_STEPS
 .PHONY: fmt
-fmt: $(FMT_STEPS)
+fmt: $(PRE_FMT_STEPS) $(FMT_STEPS)
 endif
 
 ifdef GENERATE_STEPS
 .PHONY: generate
-generate: $(GENERATE_STEPS)
+generate: $(PRE_GENERATE_STEPS) $(GENERATE_STEPS)
 endif
 
 .PHONY: help
