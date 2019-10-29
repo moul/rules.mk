@@ -47,7 +47,8 @@ endif
 
 ifneq ($(wildcard .git/HEAD),)
 .PHONY: generate.authors
-generate.authors:
+generate.authors: AUTHORS
+AUTHORS: .git/
 	echo "# This file lists all individuals having contributed content to the repository." > AUTHORS
 	echo "# For how it is generated, see 'https://github.com/moul/rules.mk'" >> AUTHORS
 	echo >> AUTHORS
