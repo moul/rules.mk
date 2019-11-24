@@ -90,7 +90,8 @@ endif
 
 .PHONY: go.unittest
 go.unittest:
-	echo "" > /tmp/coverage.txt
+	@rm -f /tmp/coverage.txt
+	@touch /tmp/coverage.txt
 	@set -e; for dir in `find . -type f -name "go.mod" | grep -v /vendor/ | sed 's@/[^/]*$$@@' | sort | uniq`; do ( set -xe; \
 	  cd $$dir; \
 	  $(GO) test $(GO_TEST_OPTS) -cover -coverprofile=/tmp/profile.out -covermode=atomic -race ./...; \
