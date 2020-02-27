@@ -1,12 +1,12 @@
 version: 2.1
 
 orbs:
-  moul: moul/build@1.12.1 # https://github.com/moul/build
+  moul: moul/build@1.16.0 # https://github.com/moul/build
 
 jobs:
   test-go-binary:
     docker:
-      - image: circleci/golang:1.13
+      - image: circleci/golang:1.14
     working_directory: /go/src/moul.io/rules.mk
     environment:
       - GO111MODULE=on
@@ -19,7 +19,7 @@ jobs:
       - run: cd test/go-binary; make bumpdeps
   test-go-library:
     docker:
-      - image: circleci/golang:1.13
+      - image: circleci/golang:1.14
     working_directory: /go/src/moul.io/rules.mk
     environment:
       - GO111MODULE=on
@@ -38,7 +38,7 @@ jobs:
       - run: cd test/docker; make build
   test-go-binary-and-docker:
     docker:
-      - image: circleci/golang:1.13
+      - image: circleci/golang:1.14
     environment:
       - GO111MODULE=on
     working_directory: /go/src/moul.io/rules.mk
