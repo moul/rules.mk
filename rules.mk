@@ -102,6 +102,10 @@ go.unittest:
 	  fi); done
 	@mv /tmp/gocoverage $(GOCOVERAGE_FILE)
 
+.PHONY: go.checkdoc
+go.checkdoc:
+	go doc $(GOMOD_DIR)
+
 .PHONY: go.coverfunc
 go.coverfunc: go.unittest
 	go tool cover -func=$(GOCOVERAGE_FILE) | grep -v .pb.go: | grep -v .pb.gw.go:
