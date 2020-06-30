@@ -57,7 +57,7 @@ jobs:
       - run: cd test/go-binary-and-docker; make bumpdeps
   test-go-binary-and-docker--only-golang:
     docker:
-      - image: circleci/golang:1.13
+      - image: circleci/golang:1.14
     working_directory: /go/src/moul.io/rules.mk
     environment:
       - DOCKER_IMAGE=none
