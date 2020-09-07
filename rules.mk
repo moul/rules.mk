@@ -320,3 +320,5 @@ help::
 	@[ "$(TIDY_STEPS)" != "" ]      && echo "  tidy"      || true
 	@[ "$(UNITTEST_STEPS)" != "" ]  && echo "  unittest"  || true
 	@# FIXME: list other commands
+
+print-% : ; $(info $* is a $(flavor $*) variable set to [$($*)]) @true
