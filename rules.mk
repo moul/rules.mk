@@ -111,8 +111,9 @@ ifeq ($(CI),true)
 	@rm -f $(GOTESTJSON_FILE)
 	@set -e; for dir in `find $(GOMOD_DIR) -type f -name "go.mod" | grep -v /vendor/ | sed 's@/[^/]*$$@@' | sort | uniq`; do (set -e; (set -euf pipefail; \
 	    cd $$dir; \
-	    ($(GO) test ./... $(GO_TEST_OPTS) -cover -coverprofile=/tmp/profile.out -covermode=atomic -race -json | tee -a $(GOTESTJSON_FILE) 3>&1 1>&2 2>&3 | tee -a $(GOBUILDLOG_FILE); \
+	    (($(GO) test ./... $(GO_TEST_OPTS) -cover -coverprofile=/tmp/profile.out -covermode=atomic -race -json && touch $@.ok) | tee -a $(GOTESTJSON_FILE) 3>&1 1>&2 2>&3 | tee -a $(GOBUILDLOG_FILE); \
 	  ); \
+	  rm $@.ok 2>/dev/null || exit 1; \
 	  if [ -f /tmp/profile.out ]; then \
 	    cat /tmp/profile.out | sed "/mode: atomic/d" >> /tmp/gocoverage; \
 	    rm -f /tmp/profile.out; \
