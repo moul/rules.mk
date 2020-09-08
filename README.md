@@ -39,6 +39,72 @@ include rules.mk
 
 See the [`./test` directory](./test)
 
+*`make help` at the root of this repo*
+
+[embedmd]:# (.tmp/root-help.txt)
+```txt
+General commands:
+  bumpdeps
+  generate
+  test
+```
+
+*`make help` in test/docker*
+
+[embedmd]:# (.tmp/test-docker.txt)
+```txt
+General commands:
+  build
+  test
+```
+
+*`make help` in test/go-binary*
+
+[embedmd]:# (.tmp/test-go-binary.txt)
+```txt
+General commands:
+  build
+  bumpdeps
+  fmt
+  install
+  lint
+  release
+  test
+  tidy
+  unittest
+```
+
+*`make help` in test/go-binary-and-docker*
+
+[embedmd]:# (.tmp/test-go-binary-and-docker.txt)
+```txt
+General commands:
+  build
+  bumpdeps
+  fmt
+  install
+  lint
+  release
+  test
+  tidy
+  unittest
+```
+
+*`make help` in test/go-library*
+
+[embedmd]:# (.tmp/test-go-library.txt)
+```txt
+General commands:
+  build
+  bumpdeps
+  fmt
+  lint
+  test
+  tidy
+  unittest
+```
+
+
 ## License
 
 © 2019 [Manfred Touron](https://manfred.life) -
