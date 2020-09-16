@@ -7,3 +7,8 @@ generate:
 	cd test; for test in *; do (cd $$test; make -s help) > ../.tmp/test-$$test.txt; done
 	embedmd -w README.md
 	#rm -rf .tmp
+.PHONY: generate
+
+test:
+	cd test; make
+.PHONY: test
