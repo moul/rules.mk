@@ -66,12 +66,14 @@ General commands:
   build
   bumpdeps
   fmt
+  generate
   install
   lint
   release
   test
   tidy
   unittest
+  verify
 ```
 
 *`make help` in test/go-binary-and-docker*
@@ -82,12 +84,14 @@ General commands:
   build
   bumpdeps
   fmt
+  generate
   install
   lint
   release
   test
   tidy
   unittest
+  verify
 ```
 
 *`make help` in test/go-library*
@@ -98,10 +102,12 @@ General commands:
   build
   bumpdeps
   fmt
+  generate
   lint
   test
   tidy
   unittest
+  verify
 ```
 
 
