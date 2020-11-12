@@ -113,5 +113,5 @@ General commands:
 
 ## License
 
-© 2019 [Manfred Touron](https://manfred.life) -
+© 2019-2020 [Manfred Touron](https://manfred.life) -
 [Apache-2.0 License](https://github.com/moul/rules.mk/blob/master/LICENSE)
