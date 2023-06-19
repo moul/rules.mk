@@ -6,7 +6,7 @@ orbs:
 jobs:
   test-go-binary:
     docker:
-      - image: circleci/golang:1.15
+      - image: circleci/golang:1.17
     working_directory: /go/src/moul.io/rules.mk
     environment:
       - GO111MODULE=on
@@ -19,7 +19,7 @@ jobs:
       - run: cd test/go-binary; make bumpdeps
   test-go-library:
     docker:
-      - image: circleci/golang:1.15
+      - image: circleci/golang:1.17
     working_directory: /go/src/moul.io/rules.mk
     environment:
       - GO111MODULE=on
@@ -38,7 +38,7 @@ jobs:
       - run: cd test/docker; make build
   test-go-binary-and-docker:
     docker:
-      - image: circleci/golang:1.15
+      - image: circleci/golang:1.17
     environment:
       - GO111MODULE=on
     working_directory: /go/src/moul.io/rules.mk
@@ -57,7 +57,7 @@ jobs:
       - run: cd test/go-binary-and-docker; make bumpdeps
   test-go-binary-and-docker--only-golang:
     docker:
-      - image: circleci/golang:1.15
+      - image: circleci/golang:1.17
     working_directory: /go/src/moul.io/rules.mk
     environment:
       - DOCKER_IMAGE=none
