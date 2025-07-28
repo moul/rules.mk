@@ -1,12 +1,25 @@
 # rules.mk
 
-:smile: rules.mk
+:warning: **This project is no longer maintained** :warning:
 
 [![CircleCI](https://circleci.com/gh/moul/rules.mk.svg?style=shield)](https://circleci.com/gh/moul/rules.mk)
 [![License](https://img.shields.io/github/license/moul/rules.mk.svg)](https://github.com/moul/rules.mk/blob/master/LICENSE)
 [![GitHub release](https://img.shields.io/github/release/moul/rules.mk.svg)](https://github.com/moul/rules.mk/releases)
 [![CodeFactor](https://www.codefactor.io/repository/github/moul/rules.mk/badge)](https://www.codefactor.io/repository/github/moul/rules.mk)
 [![Made by Manfred Touron](https://img.shields.io/badge/made%20by-Manfred%20Touron-blue.svg?style=flat)](https://manfred.life/)
+
+## Project Status
+
+After years of using and maintaining this project, I've come to realize that this approach adds more complexity than value. While the idea of having a shared Makefile library seemed appealing initially, in practice it:
+
+- Makes debugging harder when things go wrong
+- Adds an extra layer of abstraction that obscures what's actually happening
+- Creates a dependency that needs to be maintained and updated
+- Can break existing projects when updated
+
+**I now recommend using smaller, focused tools that can be called from Makefiles instead of relying on Makefile libraries.** This approach is more modular, easier to understand, and provides better error messages.
+
+The project will remain available for those who find it useful, but I won't be adding new features or fixing bugs.
 
 ## Usage
 
